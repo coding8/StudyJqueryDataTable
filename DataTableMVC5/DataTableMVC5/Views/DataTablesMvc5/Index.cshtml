@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DataTableMVC5.Models.DataTablesWithJson>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="myDataTable">
+
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+
+    <tbody></tbody>
+
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </tfoot>
+
+</table>
+@section scripts {
+
+    <link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var oTable = $('#myDataTable').dataTable({
+                "bProcessing": true,
+                "bServerSide": true,
+                "sAjaxSource": "/DataTablesMvc5/AjaxHand",
+                "fnServerData": function (sUrl, aoData, fnCallback, oSettings) {
+                    oSettings.jqXHR = $.ajax({
+                        "type": "POST",
+                        "url": sUrl,
+                        "data": aoData,
+                        "success": fnCallback,
+                        "dataType": "json",
+                        "cache": false
+                    });
+                },
+                "bLengthChange": false,
+                "sPaginationType": "full_numbers",
+              
+                "aoColumns": [
+                    //--1
+                     //{"sName":"Id"
+                     //  //, "mRender": function (data, type, row) {
+                     //  //    return '<div class="foundicon-plus detail" style="color:#5da423; cursor:pointer"></div>';
+                     //  //}
+                     //},
+                     //{ "sName": "Name" }
+                         //--2
+                         //{
+                         //    "sName": "Id",
+                         //    "bSearchable": false,
+                         //    "bSortable": false,
+                         //    "fnRender": function (oObj) {
+                         //        return '<a href=\"Details/' +
+                         //        oObj.aData[0] + '\">View</a>';
+                         //    }
+                         //},
+                         //       { "sName": "Name" },
+
+                 //--3 OK
+                { "sWidth": '200px', "mData": "Id" },
+                { "sWidth": '200px', "mData": "Name" }
+
+                ////--4
+                //{
+                //    //"sDefaultContent": "",
+                //    "mData": "Id", "bSortable": false,
+                //    "mRender": function (o) { return '<a href=/Produto/Detalhar/' + o.aData[0] + '>' + 'More' + '</a>'; }
+                //},
+                //        { "mData": "Name", "sTitle": "Identificação do produto" }
+                  
+                //        //{   "mData": null,
+                //        //    "bSortable": false,
+                //        //    "mRender": function (o) {return '<a href=/Produto/Detalhar/' + o.aData[0] + '>' + 'More' + '</a>';}
+                //        //}   
+                ]
+            });
+
+        });
+    </script>
+}
