@@ -45,58 +45,58 @@
                 "bProcessing": true,
                 "bServerSide": true,
                 "sAjaxSource": "/DataTablesMvc5/AjaxHand",
-                "fnServerData": function (sUrl, aoData, fnCallback, oSettings) {
-                    oSettings.jqXHR = $.ajax({
-                        "type": "POST",
-                        "url": sUrl,
-                        "data": aoData,
-                        "success": fnCallback,
-                        "dataType": "json",
-                        "cache": false
-                    });
-                },
                 "bLengthChange": false,
                 "sPaginationType": "full_numbers",
-              
-                "aoColumns": [
-                    //--1
-                     //{"sName":"Id"
-                     //  //, "mRender": function (data, type, row) {
-                     //  //    return '<div class="foundicon-plus detail" style="color:#5da423; cursor:pointer"></div>';
-                     //  //}
-                     //},
-                     //{ "sName": "Name" }
-                         //--2
-                         //{
-                         //    "sName": "Id",
-                         //    "bSearchable": false,
-                         //    "bSortable": false,
-                         //    "fnRender": function (oObj) {
-                         //        return '<a href=\"Details/' +
-                         //        oObj.aData[0] + '\">View</a>';
-                         //    }
-                         //},
-                         //       { "sName": "Name" },
+                'bPaginate': true,      //是否启用分页。
+                'bLengthChange': false, //是否允许自定义每页显示条数.默认为true显示
+                "bInfo": true,          //是否显示分页信息
+                "bFilter": false,       //是否显示搜索栏
+                //"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "所有"]],
+                "iDisplayLength": 5, //每页显示10条记录
+                "sPaginationType": "full_numbers",
 
-                 //--3 OK
-                { "sWidth": '200px', "mData": "Id" },
+                //显示特定格式(如负数显示红色)
+                //"aoColumnDefs": [{
+                //    "aTargets": [0, 1, 2, 3],//可以指定在哪些列里查找
+                //    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                //        if (sData < "810523174") {
+                //            $(nTd).css('color', 'red')
+                //            $(nTd).css('font-weight', 'bold')
+                //        }
+                //    }
+                //}],
+
+                "oLanguage": {
+                    "sLengthMenu": "每页显示 _MENU_ 条记录",
+                    "sZeroRecords": "对不起，查询不到任何相关数据",
+                    "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录。",
+                    "sInfoEmpty": "找不到相关数据",
+                    "sInfoFiltered": "（数据表中共为 _MAX_ 条记录）",
+                    "sProcessing": "正在加载中...",
+                    "sSearch": "搜索",
+                    "sUrl": "", //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
+                    "oPaginate": {
+                        "sFirst": "第一页",
+                        "sPrevious": " 上一页 ",
+                        "sNext": " 下一页 ",
+                        "sLast": " 最后一页 "
+                    }
+                }, //多语言配置
+                //"bStateSave": true, //保存状态到cookie *************** 很重要 ， 当搜索的时候页面一刷新会导致搜索的消失。使用这个属性就可避免了
+
+                "aoColumns": [
+                {
+                    "sWidth": '200px', "mData": "Id",
+                    "fnRender": function (obj) {
+                        return '<a class="ajaxify" href=\"/admin/Article/edit?Id=' + obj.aData.Id + '\">编辑</a> '
+                            + ' <a href=\"#\" onclick=\"DeleteArticle(' + obj.aData.Id + ')\">删除</a>';
+                    }
+
+                },
                 { "sWidth": '200px', "mData": "Name" }
 
-                ////--4
-                //{
-                //    //"sDefaultContent": "",
-                //    "mData": "Id", "bSortable": false,
-                //    "mRender": function (o) { return '<a href=/Produto/Detalhar/' + o.aData[0] + '>' + 'More' + '</a>'; }
-                //},
-                //        { "mData": "Name", "sTitle": "Identificação do produto" }
-                  
-                //        //{   "mData": null,
-                //        //    "bSortable": false,
-                //        //    "mRender": function (o) {return '<a href=/Produto/Detalhar/' + o.aData[0] + '>' + 'More' + '</a>';}
-                //        //}   
                 ]
-            });
-
-        });
+            });//end table
+        });//end ready()
     </script>
 }
