@@ -84,6 +84,45 @@ namespace DataTableMVC5.Controllers
             return View(db.DataTablesWithJson.ToList());
         }
 
+        public ActionResult Refresh()
+        {
+            return View();
+        }
+
+        public ActionResult MasterDetailsAjaxHandler(
+             jQueryDataTableParamModel param, int? CompanyID)
+        {
+
+            var employees = db.Employee;
+
+            //"Business logic" method that filters employees by the employer id
+            var companyEmployees = (from e in employees
+                                    where (CompanyID == null || e.CompanyID == CompanyID)
+                                    select e).ToList();
+
+            //UI processing logic that filter company employees by name and paginates them
+            var filteredEmployees = (from e in companyEmployees
+                                     where (param.sSearch == null ||
+                                     e.Name.ToLower().Contains(param.sSearch.ToLower()))
+                                     select e).ToList();
+            var result = from emp in filteredEmployees.Skip(
+                         param.iDisplayStart).Take(param.iDisplayLength)
+                         select new[] { 
+                             Convert.ToString(emp.EmployeeID), 
+                             emp.Name,
+                             emp.Position 
+                         };
+
+            return Json(new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = companyEmployees.Count,
+                iTotalDisplayRecords = filteredEmployees.Count,
+                aaData = result
+            },
+            JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Create()
         {
             return View();

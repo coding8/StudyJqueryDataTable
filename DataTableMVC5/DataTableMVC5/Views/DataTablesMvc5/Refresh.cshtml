@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Refresh";
+}
+
+<h2>Refresh</h2>
+<input type="text" id="hello" />
+<button id="Refresh" type="button">Refresh</button >
+    <table id="employees" class="display">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Position</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+@section scripts{
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        var oEmployeesTable = $('#employees').dataTable({
+            "bJQueryUI": true,
+            "bServerSide": true,
+            "sAjaxSource": "MasterDetailsAjaxHandler",
+            "bPaginage": true,
+            "sPaginationType": "full_numbers",
+            "fnServerData": function (sSource, aoData, fnCallback) {
+                aoData.push({ "name": "CompanyID", "value": $('#hello').val()});
+                $.getJSON(sSource, aoData, function (json) {
+                    fnCallback(json)
+                });
+            }
+        });
+
+        $("#Refresh").click(function (e) {
+            oEmployeesTable.fnDraw();
+        });
+    });
+</script>
+}
