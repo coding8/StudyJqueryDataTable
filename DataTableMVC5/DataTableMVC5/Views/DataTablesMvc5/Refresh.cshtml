@@ -4,7 +4,8 @@
 }
 
 <h2>Refresh</h2>
-<input type="text" id="hello" />
+<input type="text" id="companyId" />
+<input type="text" id="employeeName" />
 <button id="Refresh" type="button">Refresh</button >
     <table id="employees" class="display">
         <thead>
@@ -29,11 +30,22 @@
             "sAjaxSource": "MasterDetailsAjaxHandler",
             "bPaginage": true,
             "sPaginationType": "full_numbers",
-            "fnServerData": function (sSource, aoData, fnCallback) {
-                aoData.push({ "name": "CompanyID", "value": $('#hello').val()});
-                $.getJSON(sSource, aoData, function (json) {
-                    fnCallback(json)
-                });
+            "iDisplayLength": 5,
+
+            //fnServerParams is a new 1.8.2 interface. if you have 1.8.1 or earlier, there is no fnServerParams
+            //"fnServerData": function (sSource, aoData, fnCallback) {
+            //    aoData.push({ "name": "CompanyID", "value": $('#hello').val()});
+            //    $.getJSON(sSource, aoData, function (json) {
+            //        fnCallback(json);
+            //        alert(json);
+            //    });
+            //}
+
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    { "name": "CompanyID", "value": $('#companyId').val() },
+                    { "name": "Name", "value": $('#employeeName').val() }
+                    );
             }
         });
 

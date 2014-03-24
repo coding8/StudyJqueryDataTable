@@ -90,21 +90,26 @@ namespace DataTableMVC5.Controllers
         }
 
         public ActionResult MasterDetailsAjaxHandler(
-             jQueryDataTableParamModel param, int? CompanyID)
+             jQueryDataTableParamModel param, int? CompanyID,string Name)
         {
 
             var employees = db.Employee;
 
-            //"Business logic" method that filters employees by the employer id
+            //"Business logic" method that filters employees by the employer id and name
+            //自定义筛选
             var companyEmployees = (from e in employees
                                     where (CompanyID == null || e.CompanyID == CompanyID)
+                                    &&
+                                    (string.IsNullOrEmpty(Name) || e.Name==Name)
                                     select e).ToList();
 
             //UI processing logic that filter company employees by name and paginates them
+            //全局搜索（在以上自定义筛选的基础上还可以筛选）【可选项】
             var filteredEmployees = (from e in companyEmployees
                                      where (param.sSearch == null ||
                                      e.Name.ToLower().Contains(param.sSearch.ToLower()))
                                      select e).ToList();
+
             var result = from emp in filteredEmployees.Skip(
                          param.iDisplayStart).Take(param.iDisplayLength)
                          select new[] { 
