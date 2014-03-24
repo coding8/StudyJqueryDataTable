@@ -4,7 +4,7 @@
 }
 
 <h2>Refresh</h2>
-<input type="text" id="companyId" />
+<input type="text" id="employeeId" />
 <input type="text" id="employeeName" />
 <button id="Refresh" type="button">Refresh</button >
     <table id="employees" class="display">
@@ -43,7 +43,7 @@
 
             "fnServerParams": function (aoData) {
                 aoData.push(
-                    { "name": "CompanyID", "value": $('#companyId').val() },
+                    { "name": "EmployeeID", "value": $('#employeeId').val() },
                     { "name": "Name", "value": $('#employeeName').val() }
                     );
             }
