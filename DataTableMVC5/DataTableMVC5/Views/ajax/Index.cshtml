@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table id="todaySO" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Employee</th>
+            <th>Position</th>
+            <th>Birthday</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section    scripts{
+
+<link href="~/Content/DataTable/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#todaySO').dataTable({
+                "bServerSide": true,
+                "sAjaxSource": "/ajax/GetAjax",
+                "bPaginage": true,
+                "sPaginationType": "full_numbers",
+                "iDisplayLength": 5,
+                //"oLanguage": { "sUrl": "/Scripts/DataTable/dataTable_cn.txt" }//多语言配置
+                "oLanguage": {
+                    "sLengthMenu": "每页显示 _MENU_ 条记录",
+                    "sZeroRecords": "对不起，查询不到任何相关数据",
+                    "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录。",
+                    "sInfoEmpty": "找不到相关数据",
+                    "sInfoFiltered": "（数据表中共为 _MAX_ 条记录）",
+                    "sProcessing": "正在加载中...",
+                    "sSearch": "搜索",
+                    "sUrl": "", //多语言配置文件，可将oLanguage的设置放在一个txt文件中，例：Javascript/datatable/dtCH.txt
+                    "oPaginate": {
+                        "sFirst": "第一页",
+                        "sPrevious": " 上一页 ",
+                        "sNext": " 下一页 ",
+                        "sLast": " 最后一页 "
+                    }
+                } //多语言配置
+                ,"aoColumns": [
+                    //{ "mData": "EmployeeID" },
+                    { "mData": "Name" },
+                    { "mData": "Position" }
+                    //{ "mData": "OrderQty", "sType": "numeric" }
+               ]
+            });//end table
+        });//end ready()
+    </script>
+}
