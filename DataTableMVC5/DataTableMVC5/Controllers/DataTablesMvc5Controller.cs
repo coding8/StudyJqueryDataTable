@@ -118,9 +118,11 @@ namespace DataTableMVC5.Controllers
             var result = from emp in filteredEmployees.Skip(
                          param.iDisplayStart).Take(param.iDisplayLength)
                          select new[] { 
-                             Convert.ToString(emp.EmployeeID), 
+                             //Convert.ToString(emp.EmployeeID), 
+                             emp.EmployeeID.ToString(),
                              emp.Name,
-                             emp.Position 
+                             emp.Position ,
+                             emp.Birthday.ToString("yyyy-mm-dd") 
                          };
 
             return Json(new

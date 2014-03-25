@@ -17,6 +17,7 @@ namespace DataTableMVC5.Models
         public string Name { get; set; }
         public string Position { get; set; }
         public int CompanyID { get; set; }
+        public DateTime Birthday { get; set; }
     }
     public class Company
     {
