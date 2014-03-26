@@ -1,9 +1,6 @@
 ﻿using DataTableMVC5.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 //
 namespace DataTableMVC5.Controllers
@@ -100,7 +97,7 @@ namespace DataTableMVC5.Controllers
             var companyEmployees = (from e in employees
                                     where (EmployeeID == null || e.EmployeeID == EmployeeID)
                                     &&
-                                    (string.IsNullOrEmpty(Name) || e.Name==Name)
+                                    (string.IsNullOrEmpty(Name) || e.Name == Name)
                                     select e).ToList();
 
             //UI processing logic that filter company employees by name and paginates them

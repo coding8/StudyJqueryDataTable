@@ -46,6 +46,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -161,12 +162,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\ajaxController.cs" />
+    <Compile Include="Controllers\DataTableController.cs" />
     <Compile Include="Controllers\DataTablesMvc5Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestDataTableMultiSortController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\DataTableHelper.cs" />
+    <Compile Include="Helper\MvcDataTable.cs" />
     <Compile Include="Migrations\201403231356507_AddCompany_Employee.cs" />
     <Compile Include="Migrations\201403231356507_AddCompany_Employee.Designer.cs">
       <DependentUpon>201403231356507_AddCompany_Employee.cs</DependentUpon>
@@ -176,15 +180,12 @@
       <DependentUpon>201403250033355_add date.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\DataTableFilter.cs" />
-    <Compile Include="Models\DataTableHelper.cs" />
-    <Compile Include="Models\DataTablesModelBinding.cs" />
-    <Compile Include="Models\DataTablesParam.cs" />
     <Compile Include="Models\DataTablesWithJson.cs" />
-    <Compile Include="Models\DynamicQueryable.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="TestDataTable\DynamicQueryable.cs" />
+    <Compile Include="TestDataTable\TestDataTableModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -243,7 +244,8 @@
     <Content Include="Views\DataTablesMvc5\Create.cshtml" />
     <Content Include="Views\DataTablesMvc5\Edit.cshtml" />
     <Content Include="Views\DataTablesMvc5\Refresh.cshtml" />
-    <Content Include="Views\ajax\Index.cshtml" />
+    <Content Include="Views\TestDataTableMultiSort\Index.cshtml" />
+    <Content Include="Views\DataTable\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

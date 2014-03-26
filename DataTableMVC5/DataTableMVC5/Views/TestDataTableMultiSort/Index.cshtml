@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -8,7 +7,7 @@
 <table id="todaySO" class="table table-bordered">
     <thead>
         <tr>
-            <th>ID</th>
+            @*<th>ID</th>*@
             <th>Employee</th>
             <th>Position</th>
             <th>Birthday</th>
@@ -19,14 +18,14 @@
 
 @section    scripts{
 
-<link href="~/Content/DataTable/jquery.dataTables.css" rel="stylesheet" />
-<script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <link href="~/Content/DataTable/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript">
         $(function () {
             $('#todaySO').dataTable({
                 "bServerSide": true,
-                "sAjaxSource": "/ajax/GetAjax",
+                "sAjaxSource": "/TestDataTable/GetAjax",
                 "bPaginage": true,
                 "sPaginationType": "full_numbers",
                 "iDisplayLength": 5,
@@ -47,12 +46,12 @@
                         "sLast": " 最后一页 "
                     }
                 } //多语言配置
-                ,"aoColumns": [
+                , "aoColumns": [
                     //{ "mData": "EmployeeID" },
                     { "mData": "Name" },
                     { "mData": "Position" }
                     //{ "mData": "OrderQty", "sType": "numeric" }
-               ]
+                ]
             });//end table
         });//end ready()
     </script>
