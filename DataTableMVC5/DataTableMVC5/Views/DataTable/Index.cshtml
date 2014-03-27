@@ -28,6 +28,7 @@
                     <input type="text" class="searchString form-control" />
                 </td>
             </tr>
+
             <tr>
                 <td>
                     <label id="Position" class="searchField">Position</label>
@@ -41,6 +42,22 @@
                 </td>
                 <td>
                     <input type="text" class="searchString" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label id="Birthday" class="searchField">Birthday</label>
+                </td>
+                <td>
+                    <select class="searchOper">
+                        <option value="eq">等于</option>
+                        <option value="gt">大于</option>
+                        <option value="lt">小于</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="searchString datetimepicker" />
                 </td>
             </tr>
         </tbody>
@@ -66,6 +83,9 @@
 
     <link href="~/Content/DataTable/jquery.dataTables.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.dataTables.min.js"></script>
+
+    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>
 
     <script type="text/javascript">
 
@@ -141,16 +161,19 @@
                 , "aoColumns": [
                     //{ "mData": "EmployeeID" },
                     { "mData": "Name" },
-                    { "mData": "Position" }
-                    //{ "mData": "OrderQty", "sType": "numeric" }
+                    { "mData": "Position" },
+                    {
+                        "mData": "Birthday",//2012-01-05T01:02:01
+                        "sType": "date",
+                        "mRender": function (data, type, full) {
+                            ///return data.replace('T', ' ');
+                            return data.slice(0, 10);//2012-01-05
+                        }
+                    }
                 ]
                 , "fnServerParams": function (aoData) {
                     aoData.push(//传给服务端字符串
                         { "name": "filters", "value": multipleSearch() }
-                        //{ "name": "SortColumn", "value": "EmployeeID" },
-                        //{ "name": "SortOrder", "value": "asc" }
-                        //{ "name": "SortColumn", "value": "sSortCol_0" },
-                        //{ "name": "SortOrder", "value": "sSortDir_0" }
                     );
                 }
 
@@ -160,6 +183,14 @@
                 oEmployeesTable.fnDraw();
             });
 
+            //日期
+            $('.datetimepicker').datetimepicker({
+                language: 'zh-CN',
+                format: 'yyyy-mm-dd',
+                minView: 2,
+                todayBtn: true,
+                autoclose: true
+            });
         });//end ready()
     </script>
 }

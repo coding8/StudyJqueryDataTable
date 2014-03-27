@@ -13,7 +13,7 @@ namespace DataTableMVC5.Controllers
             return View();
         }
 
-        public ActionResult GetAjax(DataTablesParam param)
+        public string GetAjax(DataTablesParam param)
         {
             MyTableDbContext db = new MyTableDbContext();
 

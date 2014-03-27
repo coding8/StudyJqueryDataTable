@@ -11,7 +11,8 @@ namespace MvcDataTableHelper
         /// <param name="param">DataTable参数</param>
         /// <param name="query">传入查询参数</param>
         /// <returns>JsonResult</returns>
-        public static JsonResult GetQuery<T>(DataTablesParam param, IQueryable<T> query)
+        //public static JsonResult GetQuery<T>(DataTablesParam param, IQueryable<T> query)
+        public static string GetQuery<T>(DataTablesParam param, IQueryable<T> query)
         {
             //传进来的数据记录数(未筛选)
             var totalRecords = query.Count();
@@ -72,11 +73,15 @@ namespace MvcDataTableHelper
                            ).ToArray()
               };
 
-            //实例化JsonResult
-            JsonResult jr = new JsonResult();
-            jr.Data = result;
-            jr.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jr;
+            //若返回json对象，public static JsonResult GetQuery<T>。则日期格式会是：/Date(1325696521000)/
+            ////实例化JsonResult 返回一个json对象
+            //JsonResult jr = new JsonResult();
+            //jr.Data = result;
+            //jr.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            //return jr;
+
+            //或者 这样返回的json日期格式会带有一个 T :2012-01-05T01:02:01
+            return Newtonsoft.Json.JsonConvert.SerializeObject(result);
         }
     }
 }

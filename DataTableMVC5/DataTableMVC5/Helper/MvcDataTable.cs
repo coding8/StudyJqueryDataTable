@@ -80,25 +80,20 @@ namespace MvcDataTable
             {
                 obj.mDataProp.Add(request["mDataProp_" + i]);
             }
-            //multiple sorting?
-            string sortString = "";
+           
+            //排序
             for (int i = 0; i < obj.iSortingCols; i++) //iSortingCols Tell us the number of columns to sort
             {
                 // 字段名
-                int columnNumber = obj.iSortCol[i];
-                obj.SortColumn = obj.mDataProp[i];
+                int columnNumber = obj.iSortCol[i];//单字段排序 iSortCol_0
+                obj.SortColumn = obj.mDataProp[columnNumber];//有可能排序字段是2或3
                 // 字段排序方向
-                obj.SortOrder = obj.sSortDir[i];
-                //if (i != 0)
-                //{
-                //    obj.SortColumn = columnName;
-                //    obj.SortOrder = sortDir;
-                //}                 
-                //sortString += columnName + " " + sortDir;
+                obj.SortOrder = obj.sSortDir[i];//单字段排序 sSortDir_0
+                if (i != 0)
+                {
+                    //TODO:多个字段排序
+                }
             }
-
-            //obj.SortColumn = request["SortColumn"];
-            //obj.SortOrder = request["SortOrder"];
 
             obj.Where = Filter.Create(
                              request["filters"],
