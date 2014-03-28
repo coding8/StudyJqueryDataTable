@@ -34,6 +34,8 @@ namespace MvcDataTable
 
         public string SortColumn { get; set; }  //iSortCol_x 排序字段名   
         public string SortOrder { get; set; }   //sSortDir_x 排序方向   
+        public bool bFilter { get; set; }
+        public string filters { get; set; } //查询字符串
 
         public DataTablesParam()
         {
@@ -64,6 +66,9 @@ namespace MvcDataTable
             obj.bEscapeRegex = Convert.ToBoolean(request["bEscapeRegex"]);
             obj.iSortingCols = Convert.ToInt32(request["iSortingCols"]);
             obj.sEcho = request["sEcho"];
+            obj.bFilter = Convert.ToBoolean(request["bFilter"]);//是否开启全局搜索
+            obj.filters = request["filters"];  //查询字符串
+            
             // Now we take the params in the format iSortCol_(int) and save then in lists
             for (int i = 0; i < obj.iColumns; i++)
             {
