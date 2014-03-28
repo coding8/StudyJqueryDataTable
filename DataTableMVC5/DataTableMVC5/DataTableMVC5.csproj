@@ -169,7 +169,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\DataTableHelper.cs" />
+    <Compile Include="Helper\MvcDataTableHelper.cs" />
     <Compile Include="Helper\MvcDataTable.cs" />
     <Compile Include="Migrations\201403231356507_AddCompany_Employee.cs" />
     <Compile Include="Migrations\201403231356507_AddCompany_Employee.Designer.cs">
