@@ -64,13 +64,14 @@
     </table>
 
     <button id="search" class="btn btn-info">search</button>
-    <button onclick="clearSearch()" class="btn btn-danger">清空搜索条件</button>
+    <button id="clearSearch" class="btn btn-danger">清空搜索条件</button>
+    <button id="excel" class="btn btn-info">导出到Excel</button>
 </div>
 
 <table id="todaySO" class="table table-bordered">
     <thead>
         <tr>
-            @*<th>ID</th>*@
+            <th>ID</th>
             <th>Employee</th>
             <th>Position</th>
             <th>Birthday</th>
@@ -80,63 +81,33 @@
 </table>
 
 @section    scripts{
-
-    @*<link href="~/Content/DataTable/jquery.dataTables.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery.dataTables.min.js"></script>
-
-    <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
-    <script src="~/Scripts/bootstrap-datetimepicker/bootstrap-datetimepicker.js"></script>*@
-
     <script type="text/javascript">
 
         //多条件筛选字符串
         function multipleSearch() {
             var rules = "";
-
             $("#multipleSearch tbody tr").each(function (i) {    //从multipleSearch中找到各个查询条件行
                 //var searchField = $(".searchField", this).val(); //获得查询字段 select
                 var searchField = $(".searchField", this).attr('id'); //获得查询字段 select
-                var searchOper = $(".searchOper", this).val();   //获得查询方式
+                var searchOper = $(".searchOper", this).val() == null ? "eq" : $(".searchOper", this).val();   //获得查询方式。如果没有查询方式则为eq（dropdownlist）
                 var searchString = $(".searchString", this).val();  //获得查询值
-
                 if (searchField && searchOper && searchString) { //如果三者皆有值且长度大于0，则将查询条件加入rules字符串
                     rules += ',{"field":"' + searchField + '","op":"' + searchOper + '","data":"' + searchString + '"}';
                 }
             });
-
             if (rules) { //如果rules不为空，且长度大于0，则去掉开头的逗号
                 rules = rules.substring(1);
             }
-
             //串联好filtersStr字符串
             var filtersStr = '{"groupOp":"AND","rules":[' + rules + ']}';
-
-            //var postData = $("#grid").jqGrid("getGridParam", "postData");
-
-            ////将filters参数串加入postData选项
-            //$.extend(postData, { filters: filtersStr });
-
-            //$("#grid").jqGrid("setGridParam", {
-            //    search: true    //将jqGrid的search选项设为true
-            //}).trigger("reloadGrid", [{ page: 1 }]);
-
             return filtersStr;
         }
-        //重置搜索条件
-        var clearSearch = function () {
-            var filtersStr = '';
-            //var postData = $("#grid").jqGrid("getGridParam", "postData");
-            //$.extend(postData, { filters: filtersStr });
-            //$("#grid").jqGrid("setGridParam", {
-            //    search: false   //将jqGrid的search选项设为false
-            //}).trigger("reloadGrid", [{ page: 1 }]);
 
-            $(".searchString").val("");
-        };
         $(function () {
             var oEmployeesTable = $('#todaySO').dataTable({
                 "bServerSide": true,
                 "sAjaxSource": "/DataTable/GetAjax",
+                "bProcessing":true,
                 "bPaginage": true,
                 "sPaginationType": "full_numbers",
                 "iDisplayLength": 5,
@@ -159,7 +130,7 @@
                     }
                 } //多语言配置
                 , "aoColumns": [
-                    //{ "mData": "EmployeeID" },
+                    { "mData": "EmployeeID" },
                     { "mData": "Name" },
                     { "mData": "Position" },
                     {
@@ -179,8 +150,27 @@
 
             });//end table
 
+            //搜索
             $("#search").click(function (e) {
                 oEmployeesTable.fnDraw();
+            });
+
+            //清空搜索条件
+            $('#clearSearch').click(function () {
+                $(".searchString").val("");
+            });
+
+            //导出到excel
+            $('#excel').click(function (e) {
+                var oSettings = oEmployeesTable.fnSettings();
+                var IsFilter = oSettings.oFeatures.bFilter;//true or false 看表格是否启用筛选
+
+                //筛选条件
+                var filtersStr = multipleSearch();// {"groupOp":"AND","rules":[]}
+                if (filtersStr.length == 28) { filtersStr = ""; }//若没输入查询条件则将filters设置为空
+
+                //通过QueryString传递参数给Controller
+                window.open("/DataTable/ExportToExcel?filters=" + filtersStr + "&IsFilter=" + IsFilter);
             });
 
             //日期

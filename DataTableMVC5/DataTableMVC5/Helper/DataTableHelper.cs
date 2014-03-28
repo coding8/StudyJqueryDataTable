@@ -1,6 +1,6 @@
 ﻿using MvcDataTable;
+using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 
 namespace MvcDataTableHelper
 {
@@ -82,6 +82,58 @@ namespace MvcDataTableHelper
 
             //或者 这样返回的json日期格式会带有一个 T :2012-01-05T01:02:01
             return Newtonsoft.Json.JsonConvert.SerializeObject(result);
+        }
+
+        /// <summary>输出筛选后的记录</summary>
+        /// <param name="param">DataTable参数</param>
+        /// <param name="query">IQueryable类型的实体</param>
+        /// <returns>返回一个泛型列表对象</returns>
+        public static List<T> GetFilteredData<T>(DataTablesParam param, IQueryable<T> query)
+        {
+            List<T> listData;
+            //如果不开启全局搜索则只有自定义搜索
+            if (!param.bFilter)// false
+            {
+                //自定义搜索
+                if (!string.IsNullOrEmpty(param.filters))// 
+                {
+                    //And
+                    if (param.Where.groupOp == "AND")
+                        foreach (var rule in param.Where.rules)
+                            query = query.Where<T>(
+                                    rule.field,
+                                    rule.data,
+                                    (WhereOperation)StringEnum.Parse(typeof(WhereOperation), rule.op)
+                                );
+                    else
+                    {  //更新--2013.10.26
+                        IQueryable<T> temp = null;
+                        foreach (var rule in param.Where.rules)
+                        {
+                            var rule1 = rule;
+                            var t = query.Where<T>(
+                                    rule1.field,
+                                    rule1.data,
+                                    (WhereOperation)StringEnum.Parse(typeof(WhereOperation), rule1.op)
+                                );
+
+                            if (temp == null)
+                                temp = t;
+                            else
+                                //temp = temp.Union(t); // Union!!
+                                temp = temp.Concat<T>(t);//使用union会导致查不出数据
+                        }
+                        query = temp.Distinct<T>();
+                    }
+                }
+                //List<T> listData;
+                return listData = query.OrderBy<T>(param.SortColumn, param.SortOrder).ToList();
+            }
+            else//否则在全局搜索中也可能出现自定义搜索（多重搜索）。
+            {
+                //TODO: 多重搜索
+            }
+            return listData = query.OrderBy<T>(param.SortColumn, param.SortOrder).ToList();
         }
     }
 }
