@@ -146,7 +146,22 @@
                     aoData.push(//传给服务端字符串
                         { "name": "filters", "value": multipleSearch() }
                     );
-                }
+                },
+                // 整行改变颜色
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData["EmployeeID"] >=10) {
+                        $(nRow).css("background-color", "#F0AD4E");
+                    }
+                },
+                // 单元格显示红色 （<10）
+                "aoColumnDefs": [{
+                    "aTargets": [0,1,3],// 可以指定在哪些列里定义
+                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        if (sData <10) {
+                            $(nTd).css("color", "red");
+                        }
+                    }
+                }]
 
             });//end table
 
