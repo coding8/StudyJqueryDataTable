@@ -1,12 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-<style type="text/css">
-    .searchOper {
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-        font-size: 14px;
-    }
-</style>
+
 <h2>Index</h2>
 <div id="multipleSearch">
     <table class="formTable">
@@ -201,6 +196,9 @@
                 todayBtn: true,
                 autoclose: true
             });
+
+            //下拉列表select
+            $('select').selectpicker();
         });//end ready()
     </script>
 }
