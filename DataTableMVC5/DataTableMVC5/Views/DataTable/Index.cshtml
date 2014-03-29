@@ -1,7 +1,12 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-
+<style type="text/css">
+    .searchOper {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        font-size: 14px;
+    }
+</style>
 <h2>Index</h2>
 <div id="multipleSearch">
     <table class="formTable">
@@ -18,7 +23,7 @@
                     <label id="Name" class="searchField">employName</label>
                 </td>
                 <td>
-                    <select class="searchOper form-control">
+                    <select class="searchOper">
                         <option value="eq">等于</option>
                         <option value="cn">包含</option>
                         <option value="gt">大于</option>
@@ -34,14 +39,14 @@
                     <label id="Position" class="searchField">Position</label>
                 </td>
                 <td>
-                    <select class="searchOper">
+                    <select class="searchOper form-control">
                         <option value="eq">等于</option>
                         <option value="cn">包含</option>
                         <option value="lt">小于</option>
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="searchString" />
+                    <input type="text" class="searchString form-control" />
                 </td>
             </tr>
 
@@ -57,7 +62,7 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="searchString datetimepicker" />
+                    <input type="text" class="searchString datetimepicker form-control" />
                 </td>
             </tr>
         </tbody>
