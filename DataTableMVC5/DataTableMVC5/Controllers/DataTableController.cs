@@ -86,6 +86,29 @@ namespace DataTableMVC5.Controllers
             Response.End();
         }
 
+        //CRUD
+        public ActionResult CRUD()
+        {
+            IQueryable<Employee> query = db.Employee;
+            return View(query);
+        }
+        //public int AddData(string Name, string Position, DateTime Birthday, int CompanyID)
+        public ActionResult AddData(Employee emp)
+        {
+            if (db.Employee.Any(c => c.Name.ToLower().Equals(emp.Name.ToLower())))
+            {
+                Response.Write("Employee with the name '" + emp.Name + "' already exists");
+                Response.StatusCode = 404;
+                Response.End();
+                //return -1;
+                return HttpNotFound();
+            }
+            
+            db.Employee.Add(emp);
+            db.SaveChanges();
+            //return emp.EmployeeID;
+            return RedirectToAction("CRUD");
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

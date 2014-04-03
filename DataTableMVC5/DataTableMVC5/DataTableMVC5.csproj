@@ -219,13 +219,15 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\images\Sorting icons.psd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\bootstrapPaginationType.js" />
-    <Content Include="Scripts\ColReorderWithResize.js" />
+    <Content Include="Scripts\DataTable\bootstrapPaginationType.js" />
+    <Content Include="Scripts\DataTable\ColReorderWithResize.js" />
+    <Content Include="Scripts\DataTable\jquery.dataTables.editable.js" />
+    <Content Include="Scripts\DataTable\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTable\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTable\jquery.jeditable.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.dataTables.js" />
-    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -256,6 +258,7 @@
     <Content Include="Views\DataTablesMvc5\Refresh.cshtml" />
     <Content Include="Views\TestDataTableMultiSort\Index.cshtml" />
     <Content Include="Views\DataTable\Index.cshtml" />
+    <Content Include="Views\DataTable\CRUD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
