@@ -36,7 +36,8 @@ namespace DataTableMVC5
 
             bundles.Add(new ScriptBundle("~/bundles/dataTable").Include(
                       "~/Scripts/jquery.dataTables.js",
-                      "~/Scripts/bootstrapPaginationType.js"
+                      "~/Scripts/bootstrapPaginationType.js",
+                      "~/Scripts/ColReorderWithResize.js"
             ));
         }
     }
