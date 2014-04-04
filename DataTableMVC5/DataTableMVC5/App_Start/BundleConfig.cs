@@ -22,17 +22,25 @@ namespace DataTableMVC5
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap-datetimepicker.js",
+                      "~/Scripts/bootstrap-select.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datetimepicker.css",
-                      "~/Content/DataTable/jquery.dataTables.css",
-
+                      "~/Content/bootstrap-select.css",
                       "~/Content/site.css"));
             //DataTable
+            bundles.Add(new StyleBundle("~/Content/dataTable").Include(
+                        "~/Content/DataTable/jquery.dataTables.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/dataTable").Include(
-                      "~/Scripts/jquery.dataTables.js" ));
+                      "~/Scripts/DataTable/jquery.dataTables.js",
+                      "~/Scripts/DataTable/bootstrapPaginationType.js",
+                      "~/Scripts/DataTable/ColReorderWithResize.js",
+                      "~/Scripts/DataTable/jquery.dataTables.editable.js",
+                      "~/Scripts/DataTable/jquery.jeditable.js"
+            ));
         }
     }
 }

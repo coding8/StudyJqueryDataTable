@@ -18,7 +18,7 @@
                     <label id="Name" class="searchField">employName</label>
                 </td>
                 <td>
-                    <select class="searchOper form-control">
+                    <select class="searchOper">
                         <option value="eq">等于</option>
                         <option value="cn">包含</option>
                         <option value="gt">大于</option>
@@ -34,14 +34,14 @@
                     <label id="Position" class="searchField">Position</label>
                 </td>
                 <td>
-                    <select class="searchOper">
+                    <select class="searchOper form-control">
                         <option value="eq">等于</option>
                         <option value="cn">包含</option>
                         <option value="lt">小于</option>
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="searchString" />
+                    <input type="text" class="searchString form-control" />
                 </td>
             </tr>
 
@@ -57,7 +57,7 @@
                     </select>
                 </td>
                 <td>
-                    <input type="text" class="searchString datetimepicker" />
+                    <input type="text" class="searchString datetimepicker form-control" />
                 </td>
             </tr>
         </tbody>
@@ -109,9 +109,11 @@
                 "sAjaxSource": "/DataTable/GetAjax",
                 "bProcessing":true,
                 "bPaginage": true,
-                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap",//"full_numbers",
                 "iDisplayLength": 5,
                 "bFilter": false,// 取消全局筛选框
+                "sDom": "Rlfrtip",//可以用鼠标拖动列宽（ColReorderWithResize.js）
+                "bAutoWidth":false,
                 //"oLanguage": { "sUrl": "/Scripts/DataTable/dataTable_cn.txt" }//多语言配置
                 "oLanguage": {
                     "sLengthMenu": "每页显示 _MENU_ 条记录",
@@ -196,6 +198,9 @@
                 todayBtn: true,
                 autoclose: true
             });
+
+            //下拉列表select
+            $('select').selectpicker();
         });//end ready()
     </script>
 }

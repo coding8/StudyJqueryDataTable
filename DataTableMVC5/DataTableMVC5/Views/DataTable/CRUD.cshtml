@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "CRUD";
+}
+
+<h2>CRUD</h2>
+<form id="new" action="/DataTable/AddData" title="Add new company">
+    <label for="name">Name</label>
+    <input type="text" name="Name" id="name" class="required" />
+    <br />
+    <label for="name">Position</label>
+    <input type="text" name="Position" id="Position" />
+    <br />
+    <label for="name">Birthday</label>
+    <input type="text" name="Birthday" id="Birthday" />
+    <br />
+
+    <label for="name">CompanyID</label>
+    <select name="CompanyID" id="CompanyID">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    <br />
+<input type="submit" value="add" />
+</form>
+
+<table id="myTable" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Employee</th>
+            <th>Position</th>
+            <th>Birthday</th>
+            <th>CompanyID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EmployeeID</td>
+                <td>@item.Name</td>
+                <td>@item.Position</td>
+                <td>@item.Birthday</td>
+                <td>@item.CompanyID</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="add_delete_toolbar" />
+
+@section    scripts{
+    <script type="text/javascript">
+        $(function () {
+            var oTable = $('#myTable').dataTable().makeEditable();// jquery 1.9以上的live         
+        });//end ready()
+    </script>
+}
