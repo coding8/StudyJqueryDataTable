@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DataTablesParser</id>
+    <version>2.0.0</version>
+    <title>DataTablesParser</title>
+    <authors>Garvin Casimir</authors>
+    <owners>Garvin Casimir</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>http://garvincasimir.github.io/csharp-datatables-parser/</projectUrl>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A C# Server side component for the popuplar jQuery datatables plugin</description>
+    <summary>A C# Server side component for the popuplar jQuery datatables plugin</summary>
+    <releaseNotes>Moving to Entity framework 6. Look for package DataTablesParser-EF5 if you intend to remain on EF5.</releaseNotes>
+    <copyright>Copyright  2013</copyright>
+    <language>en-US</language>
+    <tags>C# Datatables Datatables.net javascript parser json Linq entity framework asp.net mvc grid table database query builder</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="EntityFramework" version="6.0" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
